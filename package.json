@@ -1,0 +1,15 @@
+{
+  "name": "youtube_clone",
+  "version": "1.0.0",
+  "description": "Youube Clone built using NodeJS, Express, Mongo, and ES6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/3rdflr/youtube_clone)"
+  },
+  "author": "3rd",
+  "license": "MIT"
+}
