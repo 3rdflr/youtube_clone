@@ -1,7 +1,8 @@
 extends layout.pug
 
-block head 
-    title Home | Youtube Clone
-
 block content
-    h1 home
+    h2 new trending videos
+    ul
+        each video in videos 
+            li=video    
+            
