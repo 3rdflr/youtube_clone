@@ -34,7 +34,32 @@ export const watch = (req, res) => {
   const video = videos[id - 1];
   return res.render("watch", { pageTitle: `${video.title}`, video });
 };
+export const getEdit = (req, res) => {
+  const { id } = req.params;
+  const video = videos[id - 1];
+  return res.render("edit", { pageTitle: `Editing: ${video.title}`, video });
+};
+export const postEdit = (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+  videos[id - 1].title = title;
+  return res.redirect(`/videos/${id}`);
+};
+export const getUpload = (req, res) => {
+  return res.render("upload", { pageTitle: "upload" });
+};
+export const postUpload = (req, res) => {
+  const { title } = req.body;
+  const newVid = {
+    title,
+    rating: 0,
+    comments: 0,
+    createdAt: "just now",
+    views: 0,
+    id: videos.length + 1,
+  };
+  videos.push(newVid);
+  return res.redirect("/");
+};
 export const search = (req, res) => res.send("search");
-export const upload = (req, res) => res.send("upload");
-export const edit = (req, res) => res.render("edit");
 export const deleteVid = (req, res) => res.send("delete Vid");
