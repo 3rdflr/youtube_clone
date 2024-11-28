@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Youube Clone built using NodeJS, Express, Mongo, and ES6",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "repository": {
     "type": "git",
