@@ -29,6 +29,7 @@ app.use(
 );
 
 app.use(localsMiddleware);
+app.use("/ffmpeg", express.static("node_modules/@ffmpeg"));
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
