@@ -1,3 +1,5 @@
+include mixins/message
+
 doctype html
 html(lang="ko")
     head 
@@ -6,6 +8,12 @@ html(lang="ko")
         link(rel="stylesheet" href="/static/css/styles.css")
         link(rel="icon" href="https://img.icons8.com/?size=100&id=NYmbrruiqq7u&format=png&color=FA5252")
     body
+        if messages.error
+            +message("error", messages.error)
+        if messages.info
+            +message("info", messages.info)
+        if messages.success
+            +message("sucess", messages.success)
         include partials/header   
         main
             block content
