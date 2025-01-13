@@ -26,28 +26,42 @@ const handlePlayClick = (e) => {
   playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 };
 
+const handleVolumeChange = (event) => {
+  const {
+    target: { value },
+  } = event;
+
+  console.log(value);
+
+  if (video.muted) {
+    video.muted = false;
+    muteBtn.innerText = "Mute";
+  }
+
+  if (value === "0") {
+    muteBtnIcon.classList = "fas fa-volume-off";
+  } else if (value >= 0.1 && value <= 0.5) {
+    muteBtnIcon.classList = "fas fa-volume-low";
+  } else {
+    muteBtnIcon.classList = "fas fa-volume-up";
+  }
+
+  volumeValue = value;
+  video.volume = value;
+};
+
 const handleMuteClick = (e) => {
   if (video.muted) {
     video.muted = false;
   } else {
     video.muted = true;
   }
+
   muteBtnIcon.classList = video.muted
     ? "fas fa-volume-mute"
     : "fas fa-volume-up";
-  volumeRange.value = video.muted ? 0 : volumeValue;
-};
 
-const handleVolumeChange = (event) => {
-  const {
-    target: { value },
-  } = event;
-  if (video.muted) {
-    video.muted = false;
-    muteBtn.innerText = "Mute";
-  }
-  volumeValue = value;
-  video.volume = value;
+  volumeRange.value = video.muted ? 0 : volumeValue;
 };
 
 const formatTime = (seconds) =>
