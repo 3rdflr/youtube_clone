@@ -35,7 +35,6 @@ const handleVolumeChange = (event) => {
 
   if (video.muted) {
     video.muted = false;
-    muteBtn.innerText = "Mute";
   }
 
   if (value === "0") {
@@ -59,7 +58,7 @@ const handleMuteClick = (e) => {
 
   muteBtnIcon.classList = video.muted
     ? "fas fa-volume-mute"
-    : "fas fa-volume-up";
+    : "fas fa-volume-low";
 
   volumeRange.value = video.muted ? 0 : volumeValue;
 };
@@ -140,6 +139,7 @@ const handleKeyDownMute = (event) => {
 const handleEnded = () => {
   const { id } = videoContainer.dataset;
   fetch(`/api/videos/${id}/view`, { method: "POST" });
+  playBtnIcon.classList = "fas fa-rotate-right";
 };
 
 playBtn.addEventListener("click", handlePlayClick);

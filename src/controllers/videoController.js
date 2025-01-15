@@ -118,13 +118,21 @@ export const search = async (req, res) => {
 
 export const registerView = async (req, res) => {
   const { id } = req.params;
+  const {
+    user: { _id },
+  } = req.session;
   const video = await Video.findById(id);
   if (!video) {
     return res.sendStatus(404);
   }
   video.meta.views = video.meta.views + 1;
   await video.save();
-  return res.sendStatus(200);
+  res.sendStatus(200);
+  if (video.meta.views >= "10") {
+    await User.findByIdAndUpdate(_id, { $inc: { bound: 1 } });
+    await Video.findByIdAndDelete(id);
+    return res.redirect("/");
+  }
 };
 
 export const createComment = async (req, res) => {
@@ -145,5 +153,26 @@ export const createComment = async (req, res) => {
   });
   video.comments.push(comment._id);
   video.save();
-  return res.sendStatus(201);
+  return res.status(201).json({ newCommentId: comment._id });
+};
+
+export const deleteComment = async (req, res) => {
+  const {
+    session: { user },
+    body: { commentId },
+    params: { id },
+  } = req;
+
+  const video = await Video.findById(id);
+
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  video.comments = video.comments.filter((id) => id !== commentId);
+  video.save();
+
+  await Comment.findByIdAndDelete(commentId);
+
+  return res.sendStatus(200);
 };

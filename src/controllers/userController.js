@@ -1,4 +1,5 @@
 import User from "../models/user";
+import Video from "../models/video";
 import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
