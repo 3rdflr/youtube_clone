@@ -125,14 +125,13 @@ const videoClickStop = (event) => {
 const handleKeyDownStop = (event) => {
   if (event.code === "Space") {
     handlePlayClick();
-    event.preventDefault();
   }
 };
 
 const handleKeyDownMute = (event) => {
   if (event.key === "m" && "M") {
-    handleMuteClick();
     event.preventDefault();
+    handleMuteClick();
   }
 };
 

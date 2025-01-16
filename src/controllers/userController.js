@@ -6,7 +6,7 @@ export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
   const { name, username, email, password, password2, location } = req.body;
   const pageTitle = "Join";
-  if (password === password2) {
+  if (password !== password2) {
     res.status(400).render("join", {
       pageTitle,
       errorMessage: "Password confirmation does not match.",
@@ -136,9 +136,8 @@ export const githubCallback = async (req, res) => {
   }
 };
 
-export const logout = (req, res) => {
+export const logout = async (req, res) => {
   req.session.destroy();
-  req.flash("info", "Bye Bye");
   return res.redirect("/");
 };
 

@@ -3,21 +3,44 @@ const form = document.getElementById("commentForm");
 
 let deleteComments = document.querySelectorAll("#delete__comment");
 
-const addComment = (text, id) => {
+const addComment = (text, id, comment) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
   newComment.className = "video__comment";
-  const icon = document.createElement("i");
-  icon.className = "fas fa-comment";
+
+  const owenrAvatar = document.createElement("img");
+  owenrAvatar.setAttribute("src", comment.avatarUrl);
+  owenrAvatar.className = "comments__avatar";
+
+  const ownerNameSpan = document.createElement("span");
+  ownerNameSpan.className = "comment__owner";
+  ownerNameSpan.innerText = comment.ownername;
+
+  const commnetCreate = document.createElement("span");
+  commnetCreate.innerText = new Date(comment.createdAt).toLocaleDateString(
+    "ko-kr",
+    { year: "numeric", month: "numeric", day: "numeric" }
+  );
+  commnetCreate.className = "comment__createdAt";
+
   const span = document.createElement("span");
+  span.className = "comment__text";
   span.innerText = ` ${text}`;
+  span.dataset.id = id;
+
   const span2 = document.createElement("span");
+  span2.dataset.id = id;
   span2.innerText = "❌";
   span2.id = "delete__comment";
-  newComment.appendChild(icon);
+  deleteComments.addEventListener("click", handleDelete);
+
+  newComment.appendChild(owenrAvatar);
+  newComment.appendChild(ownerNameSpan);
+  newComment.appendChild(commnetCreate);
   newComment.appendChild(span);
   newComment.appendChild(span2);
+
   videoComments.prepend(newComment);
 };
 
@@ -38,17 +61,20 @@ const handleSubmit = async (event) => {
     },
     body: JSON.stringify({ text }),
   });
-  textarea.value = "";
   if (status === 201) {
-    addComment(text);
+    textarea.value = "";
+    //    const { newCommentId } = await response.json();
+    //    addComment(text, newCommentId);
+    window.location.reload();
   }
 };
+
 if (form) {
   form.addEventListener("submit", handleSubmit);
 }
 
-const handleDeleteComment = async (event) => {
-  const deleteComment = event.target.parentElement;
+const handleDelete = async (event) => {
+  const deleteComment = document.querySelector("ul");
 
   const {
     dataset: { id },
@@ -63,11 +89,14 @@ const handleDeleteComment = async (event) => {
     },
     body: JSON.stringify({ commentId: id }),
   });
-  deleteComment.remove();
+  if (response.status === 200) {
+    deleteComment.remove();
+    window.location.reload();
+  }
 };
 
 if (deleteComments) {
-  deleteComments.forEach((deleteComment) => {
-    deleteComment.addEventListener("click", handleDeleteComment);
-  });
+  deleteComments.forEach((icon) =>
+    icon.addEventListener("click", handleDelete)
+  );
 }

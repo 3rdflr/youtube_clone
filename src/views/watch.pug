@@ -24,30 +24,41 @@ block content
         p.video__title=video.title
         br
         br
-        br
-        div.data_box
+        p.video__ViewCreate
+            span.video-mixin-views #{video.meta.views} views  •   
+            span.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric'})
+            span.video__icons
+                if String(video.owner._id) === String(loggedInUser._id)
+                    a.edit_data(href=`${video.id}/edit`) Edit &rarr;
+                    a.delete_data(href=`${video.id}/delete`) Delete &rarr;
+        hr.line
+        div.video__OwnerDsecContainer
+            img.video__avatar(src="/" + video.owner.avatarUrl)
             div
-                small.video__owner Uploaded by 
+                p.video__owner
                     a(href=`/users/${video.owner._id}`)=video.owner.name
-                    br
-                small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
-            if String(video.owner._id) === String(loggedInUser._id)
-                div.edit_delete
-                    a.edit_data(href=`${video.id}/edit`) Edit video &rarr;
-                    a.delete_data(href=`${video.id}/delete`) Delete video &rarr;
+                small.video__subscribe 0 subscribers
+        p.video__description=video.description
+            hr.line
     if loggedIn
-    div.video__add-comments
-        form.video__comment-from#commentForm
-            textarea(cols="30",rows="10", placeholder="Add a comment...")
-            button Comment
+        div.video__add-comments
+            form.video__comment-from#commentForm
+                img.comments__avatar(src="/" + loggedInUser.avatarUrl)
+                textarea(cols="80",rows="10", placeholder="Add a comment...")
+                button.video__comment-form__btn Comment
     div.video__comments
         ul
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment._id)
-                    i.fas.fa-comment
-                    span  #{comment.text}
-                    if String(loggedInUser._id) === String(comment.owner._id)
-                        span#delete__comment ❌
+                    div.video_commentsavatar
+                       img.comments__avatar(src= "/" + comment.avatarUrl)
+                    div
+                        div.video__commnet-text
+                            span.comment__owner#commentOwnername=comment.ownername
+                            span.comment__createdAt #{comment.createdAt.toLocaleDateString("ko-kr", {year: 'numeric', month: 'numeric', day: 'numeric'})}
+                            span.comment__text #{comment.text}
+                                if String(loggedInUser._id) === String(comment.owner._id)
+                                    span#delete__comment ❌
 
 block scripts
     script(src="/static/js/videoPlayer.js")

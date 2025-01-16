@@ -2,7 +2,7 @@ extends layout.pug
 
 block content
     h4 change title of your video
-    form(method="POST")
+    form(method="POST", enctype="multipart/form-data")
         input(name="title", placeholder="Video Title", value=video.title, required)
         input(name="description" ,placeholder="Description", required, type="text", value=video.description)
         input(name="hashtags" ,placeholder="Hashtags, use, comma, to, separate", required, type="text", value=video.hashtags.join())
