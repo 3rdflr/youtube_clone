@@ -119,7 +119,7 @@ export const githubCallback = async (req, res) => {
     let user = await User.findOne({ email: emailObj.email });
     if (!user) {
       const user = await User.create({
-        avatarUrl: userData.avatar_url,
+        avatarUrl: "uploads/avatars/IMG_4951.JPG",
         name: userData.name ? userData.name : userData.login,
         username: userData.login,
         email: emailObj.email,
