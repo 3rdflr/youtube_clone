@@ -119,7 +119,7 @@ export const githubCallback = async (req, res) => {
     let user = await User.findOne({ email: emailObj.email });
     if (!user) {
       const user = await User.create({
-        avatarUrl: "uploads/avatars/IMG_4951.JPG",
+        avatarUrl: "",
         name: userData.name ? userData.name : userData.login,
         username: userData.login,
         email: emailObj.email,
@@ -170,7 +170,7 @@ export const postEdit = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? file.location : avatarUrl,
       name,
       email,
       username,

@@ -2,7 +2,7 @@ extends layout.pug
 
 block content
     div#videoContainer(data-id=video._id)
-        video(src="/" + video.fileUrl)
+        video(src=video.fileUrl)
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn
@@ -33,7 +33,7 @@ block content
                     a.delete_data(href=`${video.id}/delete`) Delete &rarr;
         hr.line
         div.video__OwnerDsecContainer
-            img.video__avatar(src="/" + video.owner.avatarUrl)
+            img.video__avatar(src=video.owner.avatarUrl)
             div
                 p.video__owner
                     a(href=`/users/${video.owner._id}`)=video.owner.name
@@ -43,7 +43,7 @@ block content
     if loggedIn
         div.video__add-comments
             form.video__comment-from#commentForm
-                img.comments__avatar(src="/" + loggedInUser.avatarUrl)
+                img.comments__avatar(src=loggedInUser.avatarUrl)
                 textarea(cols="80",rows="10", placeholder="Add a comment...")
                 button.video__comment-form__btn Comment
     div.video__comments
@@ -51,7 +51,7 @@ block content
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment._id)
                     div.video_commentsavatar
-                       img.comments__avatar(src= "/" + comment.avatarUrl)
+                       img.comments__avatar(src=comment.avatarUrl)
                     div
                         div.video__commnet-text
                             span.comment__owner#commentOwnername=comment.ownername
