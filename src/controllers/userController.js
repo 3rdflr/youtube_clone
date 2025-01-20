@@ -119,7 +119,8 @@ export const githubCallback = async (req, res) => {
     let user = await User.findOne({ email: emailObj.email });
     if (!user) {
       const user = await User.create({
-        avatarUrl: "",
+        avatarUrl:
+          "https://youtube-clone-bound-2025.s3.ap-northeast-2.amazonaws.com/avatars/678e3efabe94c709227e114d/1737377637035",
         name: userData.name ? userData.name : userData.login,
         username: userData.login,
         email: emailObj.email,
