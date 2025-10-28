@@ -132,11 +132,12 @@ src/
 
 ## 🏗️ 아키텍처 개요 (MVC)
 
+```plaintext
 Model — 데이터 관리 (MongoDB, Mongoose)
 View — UI 렌더링 (Pug)
 Controller — 비즈니스 로직 처리
 Router — URL 경로 분리 및 Controller 호출
-
+```
 
 ## 🔄 데이터 흐름
 
